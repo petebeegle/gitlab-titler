@@ -1,0 +1,21 @@
+{
+  "name": "gitlab-titler",
+  "version": "1.0.0",
+  "description": "Append JIRA tickets to gitlab merge requests",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "lint": "rome check src/*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/petebeegle/gitlab-titler.git"
+  },
+  "bugs": {
+    "url": "https://github.com/petebeegle/gitlab-titler/issues"
+  },
+  "homepage": "https://github.com/petebeegle/gitlab-titler#readme",
+  "devDependencies": {
+    "rome": "^11.0.0"
+  }
+}
