@@ -20,12 +20,14 @@ jobs:
     - name: Terraform Format
       id: fmt
       run: terraform fmt -check
+      continue-on-error: true
     - name: Terraform Init
       id: init
       run: terraform init
     - name: Terraform Validate
       id: validate
       run: terraform validate -no-color
+      continue-on-error: true
     - name: Terraform Plan
       id: plan
       if: github.event_name == 'pull_request'
@@ -51,7 +53,23 @@ jobs:
 
           // 2. Prepare format of the comment
           const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
+          <details><summary>Format and Style Output</summary>
+
+          \`\`\`\n
+          ${{ steps.fmt.outputs.stdout }}
+          \`\`\`
+
+          </details>
+
           #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
+          <details><summary>Initialization Output</summary>
+
+          \`\`\`\n
+          ${{ steps.init.outputs.stdout }}
+          \`\`\`
+
+          </details>
+
           #### Terraform Validation 🤖\`${{ steps.validate.outcome }}\`
           <details><summary>Validation Output</summary>
 
@@ -71,7 +89,7 @@ jobs:
 
           </details>
 
-          *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`${{ env.tf_actions_working_dir }}\`, Workflow: \`${{ github.workflow }}\`*`;
+          *Pushed by: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
 
           // 3. If we have a comment, update it, otherwise create a new one
           if (botComment) {
