@@ -24,5 +24,12 @@ jobs:
       id: lint
       run: npm run lint
     - name: Test
+      uses: ArtiomTr/jest-coverage-report-action@v2
       id: test
-      run: npm test --if-present
+      with:
+          output: report-markdown
+    - name: Update Pull Request
+      uses: marocchino/sticky-pull-request-comment@v2
+      with:
+          message: ${{ steps.test.outputs.report }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
